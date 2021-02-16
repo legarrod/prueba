@@ -1,4 +1,5 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { act } from 'react-dom/test-utils';
 import FormLogion from '../../../components/FormLogin/FormLogin';
 import { rest } from 'msw'
 import { setupServer } from 'msw/node'
@@ -33,13 +34,14 @@ describe('when the form is mounted', () => {
 describe('when the user submits the form', () => {
     test('should the submit button be disabled until the request is done', async () => {
         expect(screen.getByRole('button', { name: /Ingresar/i })).not.toBeDisabled()
-
         fireEvent.click(screen.getByRole('button', { name: /Ingresar/i }))
-
         expect(screen.getByRole('button', { name: /Ingresar/i })).toBeInTheDocument()
-
         await waitFor(() =>
             expect(screen.getByRole('button', { name: /Ingresar/i })).not.toBeDisabled(),
         )
+
+        //fireEvent.click(screen.getByRole('button', { name: /Continuar/i }))
+
     })
 })
+

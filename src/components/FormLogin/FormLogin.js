@@ -62,8 +62,8 @@ export default function SignIn(props) {
             text: "El post se ha guardado correctamente",
             icon: "success",
             button: "Continuar",
-        }).then((value) => {
-            console.log(value);
+        }).then(() => {
+            //console.log(value);
             setIsSaving(false)
         });
 

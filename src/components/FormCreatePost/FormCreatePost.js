@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function CreatePost(props) {
-
+    const [isSaving, setIsSaving] = useState(false);
     const classes = useStyles();
     const urlApi = `${process.env.REACT_APP_API_ALL_POSTS}/posts`;
     const [errorMessageEmail, setErrorMessageEmail] = useState("");
@@ -49,7 +49,7 @@ export default function CreatePost(props) {
         },
     });
     const modalSucess = (response) => {
-
+        setIsSaving(true)
         return swal({
             title: "Exelente",
             text: "El post se ha guardado correctamente",
@@ -57,7 +57,10 @@ export default function CreatePost(props) {
             button: "Continuar",
         }).then((value) => {
             console.log(value);
-        });
+        }).then((value) => {
+            console.log(value);
+            setIsSaving(false)
+        })
 
     }
     const validateField = ({ name, value }) => {
@@ -141,6 +144,7 @@ export default function CreatePost(props) {
                     <Button
                         type="submit"
                         fullWidth
+                        disabled={isSaving}
                         variant="contained"
                         color="primary"
                         className={classes.submit}
