@@ -46,15 +46,15 @@ export default function BooksCards({ data, selectOptionCard }) {
             {selectOptionCard === false && Array.isArray(data) === true ? data.map((item) => (
                 <Card
                     className={`${classes.root} mx-5 my-6 w-11/12 sm:w-full md:w-4/5 lg:w-9/12`}
-                    key={item.id}
+                    key={item?.id}
                 >
-                    <p className="text-lg text-center font-semibold h-20 my-5 px-4">
-                        {item.title}
+                    <p id="title" className="text-lg text-center font-semibold h-20 my-5 px-4">
+                        {item?.title}
                     </p>
                     <center>
                         <img
                             className={` mb-4`}
-                            src={item.thumbnailUrl}
+                            src={item?.thumbnailUrl}
                             style={{ objectFit: "cover" }}
                         />
                     </center>
@@ -81,28 +81,29 @@ export default function BooksCards({ data, selectOptionCard }) {
                 </Card>
             )) : <Card
                 className={`${classes.root} mx-5 my-6 w-11/12 sm:w-full md:w-4/5 lg:w-9/12`}
-                key={data.id}
+                key={data?.id}
             >
-                    <p className="text-lg text-center font-semibold h-20 my-5 px-4">
-                        {data.title}
+                    <p id="title" className="text-lg text-center font-semibold h-20 my-5 px-4">
+                        {data?.title}
                     </p>
                     <center>
                         <img
                             className={` mb-4`}
-                            src={data.thumbnailUrl}
+                            src={data?.thumbnailUrl}
                             style={{ objectFit: "cover" }}
                         />
                     </center>
 
 
                     <CardActions disableSpacing>
-                        <IconButton aria-label="add to favorites">
+                        <IconButton id="add to favorites" aria-label="add to favorites">
                             <FavoriteIcon />
                         </IconButton>
-                        <IconButton aria-label="share">
+                        <IconButton id="share" aria-label="share">
                             <ShareIcon />
                         </IconButton>
                         <IconButton
+                            id="show more"
                             className={clsx(classes.expand, {
                                 [classes.expandOpen]: expanded,
                             })}
