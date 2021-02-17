@@ -17,6 +17,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import GoogleLogin from "react-google-login";
 import swal from 'sweetalert';
+import { CREATED_STATUS } from '../Api/httpStatus'
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -46,28 +47,35 @@ export default function SignIn(props) {
     const [viewEmail, setViewEmail] = useState(false);
     const [viewPass, setViewPass] = useState(false);
     const [isSaving, setIsSaving] = useState(false);
+    const response = { status: 300, error: "Unexpected error" }
+
 
     const formik = useFormik({
         initialValues: initialValues(),
 
         onSubmit: (formData) => {
             //console.log(formData);
-            modalSucess();
+            modalSucess(response);
         },
     });
     const modalSucess = (response) => {
-        setIsSaving(true)
-        return swal({
-            title: "Exelente",
-            text: "El post se ha guardado correctamente",
-            icon: "success",
-            button: "Continuar",
-        }).then(() => {
-            //console.log(value);
-            setIsSaving(false)
-        });
 
+        if (response.status === CREATED_STATUS) {
+            setIsSaving(true)
+            return swal({
+                title: "Exelente",
+                text: "El post se ha guardado correctamente",
+                icon: "success",
+                button: "Continuar",
+            }).then(() => {
+                //console.log(value);
+                setIsSaving(false)
+            });
+        } else if (response.status !== CREATED_STATUS) {
+            swal("Erro!", response.error, "error");
+        }
     }
+
     const validateField = ({ name, value }) => {
         if (value !== null || value !== "") {
             if (name === 'email') {

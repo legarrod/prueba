@@ -44,4 +44,14 @@ describe('when the user submits the form', () => {
 
     })
 })
+describe('when the user submits the form and the server returns an unexpected error', () => {
+    it('the form page must display the error message "Unexpected error"', async () => {
+        fireEvent.click(screen.getByRole('button', { name: /Ingresar/i }))
 
+        await waitFor(() =>
+            expect(
+                screen.getByText(/unexpected error/i),
+            ).toBeInTheDocument(),
+        )
+    })
+})
